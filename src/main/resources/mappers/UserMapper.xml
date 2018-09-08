@@ -1,0 +1,33 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="czx.wt.mapper.UserMapper">
+    <select id="getUserByName" parameterType="java.lang.String" resultType="czx.wt.pojo.User">
+        select id,username,password,error_count as errorCount,expired,last_modfiy_time as lastModifyTime from sys_user where username = #{username};
+    </select>
+
+    <update id="updateUser" parameterType="czx.wt.pojo.User">
+        update sys_user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="errorCount != null">
+                error_count = #{errorCount},
+            </if>
+            <if test="expired != null and expired != ''">
+                expired = #{expired},
+            </if>
+            <if test="lastModifyTime != null and lastModifyTime != ''">
+                last_modfiy_time = #{lastModifyTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <update id="updateLastTimeByErrorCount" parameterType="java.lang.String">
+        update sys_user set last_modfiy_time = #{lastModifyTime} where error_count >= 5
+    </update>
+</mapper>

@@ -1,0 +1,7 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="czx.wt.mapper.LoginLogInfoMapper">
+   <insert id="saveLoginLogInfo" parameterType="java.util.Map">
+       insert into sys_login_log_info values (#{id},#{loginName},#{loginTime},#{loginIp});
+   </insert>
+</mapper>
